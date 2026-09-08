@@ -1,10 +1,7 @@
 // API Configuration - auto-detect backend path
 const API_BASE = (function() {
     const origin = window.location.origin;
-    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-        return origin + '/hotel_management2.1.1/hotel_management2.1/index.php';
-    }
-    return origin + '/hotel_management2.1.1/hotel_management2.1/index.php';
+    return origin + '/arizu-arimato/backend/index.php';
 })();
 
 // API Helper
