@@ -1,7 +1,5 @@
-// API Configuration - set your backend URL here
-// For local development: const API_BASE = 'http://localhost/arizu-arimato/backend/index.php';
-// For production: const API_BASE = 'https://yourdomain.com/backend/index.php';
-const API_BASE = 'https://yourdomain.com/backend/index.php';
+// API Configuration
+const API_BASE = 'http://localhost/arizu-arimato/backend/index.php';
 
 // API Helper
 async function apiGet(endpoint) {
