@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Arizu Arimato Hotel</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="index.html" class="logo">ARIZU <span>ARIMATO</span></a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="rooms.html">Rooms</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="contact.html" class="active">Contact</a></li>
+            <li><a href="rooms.html" class="book-btn">Book Now</a></li>
+        </ul>
+        <div class="hamburger"><span></span><span></span><span></span></div>
+    </div>
+</nav>
+
+<section class="hero" style="height:50vh; background:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.6)), url('images/hotel-exterior.jpg') center/cover">
+    <div class="hero-content">
+        <div class="subtitle">Get in Touch</div>
+        <h1>Contact Us</h1>
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-title">
+        <h2>We'd Love to Hear From You</h2>
+        <div class="line"></div>
+    </div>
+    <div class="contact-grid">
+        <div class="contact-info">
+            <h3>Hotel Information</h3>
+            <div class="contact-item">
+                <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
+                <div>
+                    <h4>Address</h4>
+                    <p id="contactAddress">Loading...</p>
+                </div>
+            </div>
+            <div class="contact-item">
+                <div class="icon"><i class="fas fa-phone"></i></div>
+                <div>
+                    <h4>Phone</h4>
+                    <p id="contactPhone">Loading...</p>
+                </div>
+            </div>
+            <div class="contact-item">
+                <div class="icon"><i class="fas fa-envelope"></i></div>
+                <div>
+                    <h4>Email</h4>
+                    <p id="contactEmail">Loading...</p>
+                </div>
+            </div>
+            <div class="contact-item">
+                <div class="icon"><i class="fas fa-clock"></i></div>
+                <div>
+                    <h4>Check-in / Check-out</h4>
+                    <p>Check-in: 2:00 PM<br>Check-out: 12:00 PM</p>
+                </div>
+            </div>
+        </div>
+        <div>
+            <form class="contact-form" id="contactForm">
+                <input type="text" id="cfName" placeholder="Your Name" required>
+                <input type="email" id="cfEmail" placeholder="Your Email" required>
+                <input type="tel" id="cfPhone" placeholder="Phone (optional)">
+                <input type="text" id="cfSubject" placeholder="Subject" required>
+                <textarea id="cfMessage" placeholder="Your Message" required></textarea>
+                <button type="submit" class="btn btn-primary" style="width:100%" id="cfSubmit">Send Message</button>
+            </form>
+            <div id="contactResult" style="display:none; text-align:center; padding:30px; background:#f8f9fa; border-radius:5px;"></div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-brand">
+            <span class="logo">ARIZU <span>ARIMATO</span></span>
+            <p>A luxury boutique hotel in Siem Reap, Cambodia.</p>
+        </div>
+        <div class="footer-links">
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="rooms.html">Rooms</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+            </ul>
+        </div>
+        <div class="footer-links">
+            <h4>Contact</h4>
+            <ul>
+                <li><a href="#"><i class="fas fa-map-marker-alt"></i> Siem Reap, Cambodia</a></li>
+                <li><a href="tel:+85512345678"><i class="fas fa-phone"></i> +855 12 345 678</a></li>
+                <li><a href="mailto:info@arizuhotel.com"><i class="fas fa-envelope"></i> info@arizuhotel.com</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026 Arizu Arimato Hotel. All rights reserved.</p>
+    </div>
+</footer>
+
+<script src="js/api.js"></script>
+<script src="js/main.js"></script>
+<script>
+// Load hotel settings
+async function loadSettings() {
+    try {
+        const res = await apiGet('settings');
+        if (res.success && res.data) {
+            if (res.data.hotel_address) document.getElementById('contactAddress').textContent = res.data.hotel_address;
+            if (res.data.hotel_phone) document.getElementById('contactPhone').textContent = res.data.hotel_phone;
+            if (res.data.hotel_email) document.getElementById('contactEmail').textContent = res.data.hotel_email;
+        }
+    } catch(e) {}
+}
+
+// Contact form
+document.getElementById('contactForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('cfSubmit');
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+
+    const data = {
+        full_name: document.getElementById('cfName').value,
+        email: document.getElementById('cfEmail').value,
+        phone: document.getElementById('cfPhone').value,
+        subject: document.getElementById('cfSubject').value,
+        message: document.getElementById('cfMessage').value
+    };
+
+    try {
+        const res = await apiPost('contact', data);
+        if (res.success) {
+            document.getElementById('contactForm').style.display = 'none';
+            document.getElementById('contactResult').style.display = 'block';
+            document.getElementById('contactResult').innerHTML = `
+                <i class="fas fa-check-circle" style="font-size:3rem; color:#28a745;"></i>
+                <h3 style="margin:15px 0 10px;">Message Sent!</h3>
+                <p style="color:#666;">Thank you for contacting us. We'll get back to you soon.</p>
+            `;
+        } else {
+            alert(res.message || 'Failed to send message.');
+            btn.disabled = false;
+            btn.textContent = 'Send Message';
+        }
+    } catch(e) {
+        alert('Network error. Please try again.');
+        btn.disabled = false;
+        btn.textContent = 'Send Message';
+    }
+});
+
+loadSettings();
+</script>
+</body>
+</html>
