@@ -1,8 +1,7 @@
-// API Configuration - auto-detect backend path
-const API_BASE = (function() {
-    const origin = window.location.origin;
-    return origin + '/arizu-arimato/backend/index.php';
-})();
+// API Configuration - set your backend URL here
+// For local development: const API_BASE = 'http://localhost/arizu-arimato/backend/index.php';
+// For production: const API_BASE = 'https://yourdomain.com/backend/index.php';
+const API_BASE = 'https://yourdomain.com/backend/index.php';
 
 // API Helper
 async function apiGet(endpoint) {
