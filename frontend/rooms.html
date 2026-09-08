@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Rooms - Arizu Arimato</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+<nav class="navbar scrolled">
+    <div class="nav-container">
+        <a href="index.html" class="logo">ARIZU <span>ARIMATO</span></a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="rooms.html" class="active">Rooms</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="rooms.html" class="book-btn">Book Now</a></li>
+        </ul>
+        <div class="hamburger"><span></span><span></span><span></span></div>
+    </div>
+</nav>
+
+<section class="hero" style="height: 60vh;">
+    <div class="hero-content">
+        <h1>OUR ROOMS</h1>
+        <p class="subtitle">Luxury & Comfort</p>
+    </div>
+</section>
+
+<!-- Room Search -->
+<section class="section">
+    <div class="section-title">
+        <h2>Find Available Rooms</h2>
+        <div class="line"></div>
+        <p>Select your dates to check availability</p>
+    </div>
+    <div class="booking-search">
+        <form id="searchForm" class="search-form">
+            <div class="search-row">
+                <div class="search-field">
+                    <label>Check-in</label>
+                    <input type="date" id="checkIn" required>
+                </div>
+                <div class="search-field">
+                    <label>Check-out</label>
+                    <input type="date" id="checkOut" required>
+                </div>
+                <div class="search-field">
+                    <label>Guests</label>
+                    <select id="guests">
+                        <option value="1">1 Guest</option>
+                        <option value="2" selected>2 Guests</option>
+                        <option value="3">3 Guests</option>
+                        <option value="4">4 Guests</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+
+
+<!-- Room Categories from API -->
+<section class="section" id="roomsSection" style="display:none;">
+    <div class="section-title">
+        <h2>Room Categories</h2>
+        <div class="line"></div>
+        <p>Each room is uniquely designed with colonial elegance and modern amenities</p>
+    </div>
+    <div class="rooms-grid" id="roomsGrid"></div>
+</section>
+
+<!-- Loading -->
+<section class="section" id="loadingSection">
+    <div style="text-align:center; padding: 60px 20px;">
+        <i class="fas fa-spinner fa-spin" style="font-size:2rem; color:var(--gold);"></i>
+        <p style="margin-top:15px; color:#666;">Loading rooms...</p>
+    </div>
+</section>
+
+<!-- Booking Modal -->
+<div id="bookingModal" class="modal" style="display:none;">
+    <div class="modal-content">
+        <span class="modal-close" onclick="closeBookingModal()">&times;</span>
+        <h2>Book <span id="modalRoomType"></span></h2>
+        <p style="color:#666; margin-bottom:20px;">Fill in your details to reserve this room</p>
+        <form id="bookingForm">
+            <input type="hidden" id="bookRoomTypeId">
+            <input type="hidden" id="bookPrice">
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Full Name *</label>
+                    <input type="text" id="bookName" required>
+                </div>
+                <div class="form-group">
+                    <label>Email *</label>
+                    <input type="email" id="bookEmail" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Phone *</label>
+                    <input type="tel" id="bookPhone" required>
+                </div>
+                <div class="form-group">
+                    <label>Guests</label>
+                    <input type="number" id="bookGuests" value="2" min="1" max="10">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Check-in *</label>
+                    <input type="date" id="bookCheckIn" required>
+                </div>
+                <div class="form-group">
+                    <label>Check-out *</label>
+                    <input type="date" id="bookCheckOut" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Special Requests</label>
+                <textarea id="bookRequests" rows="3" placeholder="Any special requirements..."></textarea>
+            </div>
+            <div id="bookingSummary" style="background:#f5f5f5; padding:15px; border-radius:5px; margin-bottom:15px; display:none;">
+                <p><strong>Total:</strong> <span id="bookTotal"></span></p>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%">Confirm Reservation</button>
+        </form>
+        <div id="bookingResult" style="display:none; text-align:center; padding:30px;"></div>
+    </div>
+</div>
+
+<section class="section" style="background: #f0ede8;">
+    <div class="section-title">
+        <h2>Room Amenities</h2>
+        <div class="line"></div>
+    </div>
+    <div class="features">
+        <div class="feature-card fade-in">
+            <div class="icon"><i class="fas fa-bed"></i></div>
+            <h3>Premium Bedding</h3>
+            <p>Soft pillows and high-quality linens for a restful sleep.</p>
+        </div>
+        <div class="feature-card fade-in">
+            <div class="icon"><i class="fas fa-shower"></i></div>
+            <h3>Hot Water</h3>
+            <p>24/7 hot water supply in all rooms.</p>
+        </div>
+        <div class="feature-card fade-in">
+            <div class="icon"><i class="fas fa-coffee"></i></div>
+            <h3>Mini Bar</h3>
+            <p>Complimentary tea and coffee making facilities.</p>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-brand">
+            <span class="logo">ARIZU <span>ARIMATO</span></span>
+            <p>A luxury boutique hotel in Siem Reap, Cambodia.</p>
+        </div>
+        <div class="footer-links">
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="rooms.html">Rooms</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+            </ul>
+        </div>
+        <div class="footer-links">
+            <h4>Contact</h4>
+            <ul>
+                <li><a href="#"><i class="fas fa-map-marker-alt"></i> siemreap, Cambodia</a></li>
+                <li><a href="tel:+85512345678"><i class="fas fa-phone"></i> +855 12 345 678</a></li>
+                <li><a href="mailto:info@arizuhotel.com"><i class="fas fa-envelope"></i> info@arizuhotel.com</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026 Arizu Arimato Hotel. All rights reserved.</p>
+    </div>
+</footer>
+
+<script src="js/api.js"></script>
+<script src="js/main.js"></script>
+<script>
+// Set min dates
+const today = new Date().toISOString().split('T')[0];
+document.getElementById('checkIn').min = today;
+document.getElementById('checkOut').min = today;
+
+document.getElementById('checkIn').addEventListener('change', function() {
+    const next = new Date(this.value);
+    next.setDate(next.getDate() + 1);
+    document.getElementById('checkOut').min = next.toISOString().split('T')[0];
+});
+
+// Load rooms from API
+async function loadRooms() {
+    try {
+        const res = await apiGet('rooms');
+        if (res.success) {
+            renderRooms(res.data);
+        }
+    } catch(e) {
+        console.error('Failed to load rooms:', e);
+    }
+}
+
+function renderRooms(roomTypes) {
+    const grid = document.getElementById('roomsGrid');
+    grid.innerHTML = roomTypes.map(type => `
+        <div class="room-card fade-in">
+            <img src="${type.image}" alt="${type.type_name}">
+            <div class="room-info">
+                <h3>${type.type_name}</h3>
+                <div class="price">$${type.price_per_night} / night</div>
+                <p>${type.description || 'Comfortable room with modern amenities.'}</p>
+                <div class="room-amenities">
+                    <span><i class="fas fa-users"></i> ${type.capacity} Guests</span>
+                    <span><i class="fas fa-door-open"></i> ${type.available_rooms} Available</span>
+                </div>
+                <button class="btn btn-primary" style="width:100%" onclick="openBooking(${type.id}, '${type.type_name.replace(/'/g, "\\'")}', ${type.price_per_night})">Book Now</button>
+            </div>
+        </div>
+    `).join('');
+
+    document.getElementById('roomsSection').style.display = 'block';
+    document.getElementById('loadingSection').style.display = 'none';
+
+    // Re-observe fade-in elements
+    grid.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+}
+
+// Search available rooms
+document.getElementById('searchForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const ci = document.getElementById('checkIn').value;
+    const co = document.getElementById('checkOut').value;
+    const g = document.getElementById('guests').value;
+
+    if (!ci || !co) return alert('Please select both dates');
+
+    document.getElementById('loadingSection').innerHTML = `
+        <div style="text-align:center; padding: 60px 20px;">
+            <i class="fas fa-spinner fa-spin" style="font-size:2rem; color:var(--gold);"></i>
+            <p style="margin-top:15px; color:#666;">Searching available rooms...</p>
+        </div>`;
+    document.getElementById('loadingSection').style.display = 'block';
+    document.getElementById('roomsSection').style.display = 'none';
+
+    try {
+        const res = await apiGet(`availableRooms&check_in=${ci}&check_out=${co}&guests=${g}`);
+        if (res.success) {
+            if (res.data.length === 0) {
+                document.getElementById('loadingSection').innerHTML = `
+                    <div style="text-align:center; padding:60px 20px;">
+                        <i class="fas fa-bed" style="font-size:3rem; color:#ccc;"></i>
+                        <p style="margin-top:15px; color:#666;">No rooms available for these dates. Try different dates.</p>
+                    </div>`;
+            } else {
+                renderRooms(res.data.map(r => ({
+                    ...r,
+                    type_name: r.type_name,
+                    image: r.image || 'images/room-deluxe.jpg',
+                    available_rooms: 1,
+                    description: r.description || `Room ${r.room_number}, Floor ${r.floor || '-'}`
+                })));
+            }
+        }
+    } catch(e) {
+        console.error('Search failed:', e);
+    }
+});
+
+// Booking modal
+function openBooking(typeId, typeName, price) {
+    document.getElementById('bookRoomTypeId').value = typeId;
+    document.getElementById('bookPrice').value = price;
+    document.getElementById('modalRoomType').textContent = typeName;
+    document.getElementById('bookCheckIn').value = document.getElementById('checkIn').value || today;
+    document.getElementById('bookCheckOut').value = document.getElementById('checkOut').value || '';
+    document.getElementById('bookCheckIn').min = today;
+    document.getElementById('bookingForm').style.display = 'block';
+    document.getElementById('bookingResult').style.display = 'none';
+    document.getElementById('bookingSummary').style.display = 'none';
+    document.getElementById('bookingModal').style.display = 'flex';
+}
+
+function closeBookingModal() {
+    document.getElementById('bookingModal').style.display = 'none';
+}
+
+document.getElementById('bookCheckIn').addEventListener('change', function() {
+    const next = new Date(this.value);
+    next.setDate(next.getDate() + 1);
+    document.getElementById('bookCheckOut').min = next.toISOString().split('T')[0];
+    updateBookingTotal();
+});
+
+document.getElementById('bookCheckOut').addEventListener('change', updateBookingTotal);
+
+function updateBookingTotal() {
+    const ci = document.getElementById('bookCheckIn').value;
+    const co = document.getElementById('bookCheckOut').value;
+    if (ci && co) {
+        const nights = calcNights(ci, co);
+        const price = parseFloat(document.getElementById('bookPrice').value) || 0;
+        const total = (nights * price).toFixed(2);
+        document.getElementById('bookTotal').textContent = '$' + total;
+        document.getElementById('bookingSummary').style.display = 'block';
+    }
+}
+
+// Submit booking
+document.getElementById('bookingForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const data = {
+        room_type_id: document.getElementById('bookRoomTypeId').value,
+        full_name: document.getElementById('bookName').value,
+        email: document.getElementById('bookEmail').value,
+        phone: document.getElementById('bookPhone').value,
+        guests: document.getElementById('bookGuests').value,
+        check_in_date: document.getElementById('bookCheckIn').value,
+        check_out_date: document.getElementById('bookCheckOut').value,
+        special_requests: document.getElementById('bookRequests').value
+    };
+
+    try {
+        const res = await apiPost('reservation', data);
+        if (res.success) {
+            document.getElementById('bookingForm').style.display = 'none';
+            document.getElementById('bookingResult').style.display = 'block';
+            document.getElementById('bookingResult').innerHTML = `
+                <i class="fas fa-check-circle" style="font-size:4rem; color:#28a745;"></i>
+                <h3 style="margin:15px 0 10px;">Reservation Confirmed!</h3>
+                <p style="color:#666;">Reservation Number: <strong>${res.data.reservation_number}</strong></p>
+                <p style="color:#666;">Check-in: ${res.data.check_in} | Check-out: ${res.data.check_out}</p>
+                <p style="color:#666;">Total: <strong>$${res.data.total}</strong> for ${res.data.nights} night(s)</p>
+                <p style="margin-top:15px; color:#999; font-size:0.85rem;">We'll contact you shortly to confirm.</p>
+            `;
+        } else {
+            alert(res.message || 'Booking failed. Please try again.');
+        }
+    } catch(e) {
+        alert('Network error. Please try again.');
+    }
+});
+
+// Load rooms on page load
+loadRooms();
+</script>
+</body>
+</html>
