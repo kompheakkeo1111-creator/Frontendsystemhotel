@@ -1,6 +1,6 @@
 <?php
 // Database configuration - InfinityFree hosting
-define('DB_HOST', 'localhost');
+define('DB_HOST', 'sql105.infinityfree.com');
 define('DB_USER', 'if0_42865773');
 define('DB_PASS', 'YIfvzeJH4d');
 define('DB_NAME', 'if0_42865773_hotel_management_system');
