@@ -12,7 +12,7 @@
 <nav class="navbar scrolled">
     <div class="nav-container">
         <a href="index.html" class="logo">ARIZU <span>ARIMATO</span></a>
-        <ul class="nav-links">
+        <ul class="nav-links" id="navLinks">
             <li><a href="index.html">Home</a></li>
             <li><a href="about.html">About</a></li>
             <li><a href="rooms.html" class="active">Rooms</a></li>
@@ -20,9 +20,10 @@
             <li><a href="contact.html">Contact</a></li>
             <li><a href="rooms.html" class="book-btn">Book Now</a></li>
         </ul>
-        <div class="hamburger"><span></span><span></span><span></span></div>
+        <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
     </div>
 </nav>
+<div class="nav-overlay" id="navOverlay"></div>
 
 <section class="hero" style="height: 60vh;">
     <div class="hero-content">
@@ -207,12 +208,23 @@ document.getElementById('checkIn').addEventListener('change', function() {
 async function loadRooms() {
     try {
         const res = await apiGet('rooms');
-        if (res.success) {
+        if (res.success && res.data.length > 0) {
             renderRooms(res.data);
+            return;
         }
     } catch(e) {
-        console.error('Failed to load rooms:', e);
+        console.error('API failed, using local data:', e);
     }
+    // Fallback: local room data
+    renderRooms([
+        {id:1, type_name:'Sweet Room', description:'Cozy and romantic room perfect for couples, with queen bed and beautiful interior design.', price_per_night:50, capacity:2, available_rooms:2, image:'images/room-deluxe.jpg'},
+        {id:2, type_name:'VIP Room', description:'Full luxury apartment with kitchen, dining area, living room, and separate bedroom. Perfect for families.', price_per_night:100, capacity:5, available_rooms:2, image:'images/room-vip.jpg'},
+        {id:3, type_name:'Deluxe double check', description:'Elegant room featuring a comfortable bed, modern amenities, and colonial-style decor.', price_per_night:55, capacity:2, available_rooms:2, image:'images/room-deluxe.jpg'},
+        {id:4, type_name:'Family Garden room', description:'Spacious family room with multiple beds, garden views, and en-suite bathroom. Ideal for families.', price_per_night:90, capacity:4, available_rooms:2, image:'images/room-suite.jpg'},
+        {id:5, type_name:'Premier deluxe room', description:'Premium deluxe room with king bed, private balcony, city views, and luxurious bathroom with rain shower.', price_per_night:60, capacity:3, available_rooms:2, image:'images/room-deluxe.jpg'},
+        {id:6, type_name:'Family private pool', description:'Premium family suite with private pool access, luxury amenities, and spacious living area.', price_per_night:150, capacity:4, available_rooms:2, image:'images/room-suite.jpg'},
+        {id:7, type_name:'Prime deluxe twin room', description:'Elegant twin room with two separate beds, modern decor, and all premium amenities.', price_per_night:65, capacity:2, available_rooms:2, image:'images/room-deluxe.jpg'},
+    ]);
 }
 
 function renderRooms(roomTypes) {

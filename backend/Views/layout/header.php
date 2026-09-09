@@ -25,8 +25,17 @@ function navItem($key, $href, $icon, $label) {
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+
+<!-- Mobile Menu Toggle -->
+<button class="mobile-toggle" id="mobileToggle" onclick="toggleSidebar()">
+    <i class="bi bi-list"></i>
+</button>
+
+<!-- Sidebar Overlay -->
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
 <div class="container-fluid"><div class="row">
-<div class="col-md-2 sidebar">
+<div class="col-md-2 sidebar" id="sidebar">
     <a class="brand" href="index.php?r=dashboard/index">🏨 HMS</a>
     <div class="user-box">
         <small>Welcome, <?php echo htmlspecialchars($_SESSION['user_name'] ?? ''); ?></small><br>
@@ -74,7 +83,7 @@ function navItem($key, $href, $icon, $label) {
         <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#logoutModal"><i class="bi bi-box-arrow-right"></i> Logout</a>
     </nav>
 </div>
-<div class="col-md-10 main">
+<div class="col-md-10 main" id="mainContent">
 
 <!-- Logout Confirmation Modal -->
 <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
@@ -94,3 +103,38 @@ function navItem($key, $href, $icon, $label) {
     </div>
   </div>
 </div>
+
+<script>
+// Mobile Sidebar Toggle
+function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+    sidebar.classList.toggle('active');
+    overlay.classList.toggle('active');
+    document.body.style.overflow = sidebar.classList.contains('active') ? 'hidden' : '';
+}
+
+function closeSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+    sidebar.classList.remove('active');
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+// Close sidebar on window resize to desktop
+window.addEventListener('resize', function() {
+    if (window.innerWidth > 992) {
+        closeSidebar();
+    }
+});
+
+// Close sidebar when clicking nav links on mobile
+document.querySelectorAll('.sidebar .nav-link').forEach(link => {
+    link.addEventListener('click', function() {
+        if (window.innerWidth <= 992) {
+            closeSidebar();
+        }
+    });
+});
+</script>
