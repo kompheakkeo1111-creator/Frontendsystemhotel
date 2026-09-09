@@ -1,5 +1,5 @@
 // API Configuration
-const API_BASE = 'http://localhost/arizu-arimato/backend/index.php';
+const API_BASE = 'https://arizu-arimato.free.nf/backend/index.php';
 
 // API Helper
 async function apiGet(endpoint) {
