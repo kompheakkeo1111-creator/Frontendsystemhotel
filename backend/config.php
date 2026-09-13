@@ -1,9 +1,12 @@
 <?php
-// Database configuration - InfinityFree hosting
-define('DB_HOST', 'sql105.infinityfree.com');
-define('DB_USER', 'if0_42865773');
-define('DB_PASS', 'YIfvzeJH4d');
-define('DB_NAME', 'if0_42865773_hotel_management_system');
+// Suppress deprecation warnings for PHP 8.2+
+error_reporting(E_ALL & ~E_DEPRECATED);
+
+// Database configuration - Local WAMP
+define('DB_HOST', 'localhost');
+define('DB_USER', 'root');
+define('DB_PASS', '');
+define('DB_NAME', 'hotel_management');
 
 // Application configuration
 define('APP_NAME', 'Hotel Management System');
