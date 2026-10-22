@@ -1,5 +1,6 @@
-// API Configuration
-const API_BASE = 'https://arizu-arimato.free.nf/backend/index.php';
+// API Configuration - same origin
+// Pages live in /frontend/, so go up one level to reach /backend/index.php
+const API_BASE = '../backend/index.php';
 
 // API Helper
 async function apiGet(endpoint) {

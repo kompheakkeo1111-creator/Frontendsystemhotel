@@ -19,3 +19,9 @@ Thumbs.db
 
 # PHP
 *.log
+
+# Local config (not for production)
+config_local.php
+
+# Google JWKS key cache
+cache/

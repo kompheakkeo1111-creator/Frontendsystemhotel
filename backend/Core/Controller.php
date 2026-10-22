@@ -2,8 +2,9 @@
 namespace App\Core;
 
 /**
- * Base controller. Provides the small view/redirect helpers used by
- * controllers and mirrors the legacy requireLogin() behaviour.
+ * No Code Duplication Pattern - Base Controller Class
+ * All controllers inherit from this class to reuse common methods
+ * Avoids repeating login checks, view rendering, redirects in every controller
  */
 abstract class Controller
 {
@@ -15,42 +16,57 @@ abstract class Controller
     public $authRequired = true;
 
     /**
-     * Render a view file with data, using the MVC-native layout (header/footer).
+     * MVC Pattern - Render a view file with data
+     * Reusable: All controllers use this to render views
      *
-     * @param string $view relative path under app/Views (no leading slash)
-     * @param array  $data  variables extracted into the view scope
+     * @param string $view relative path under Views (e.g., 'users/index')
+     * @param array  $data  variables passed to the view
      * @param string $active nav key used by the layout header
      * @param string $pageTitle
      */
     protected function view($view, array $data = [], $active = '', $pageTitle = '')
     {
-        extract($data);
+        extract($data); // Extract array into variables: $users, $roles, etc.
         if (empty($active)) $active = $this->active ?? '';
         $GLOBALS['active'] = $active;
         $pageTitle = $pageTitle ?: ($this->pageTitle ?? '');
-        require __DIR__ . '/../Views/layout/header.php';
-        require __DIR__ . '/../Views/' . $view . '.php';
-        require __DIR__ . '/../Views/layout/footer.php';
+        require __DIR__ . '/../Views/layout/header.php'; // Reusable header
+        require __DIR__ . '/../Views/' . $view . '.php'; // Render view
+        require __DIR__ . '/../Views/layout/footer.php'; // Reusable footer
     }
 
+    /**
+     * Reusable: Redirect to URL
+     * All controllers use this for redirects
+     */
     protected function redirect($url)
     {
         header('Location: ' . $url);
         exit;
     }
 
+    /**
+     * Security: Require login
+     * Reusable: All controllers call this for authentication
+     */
     protected function loginRequired()
     {
-        requireLogin();
-    }
-
-    protected function roleRequired($roles)
-    {
-        requireRole($roles);
+        requireLogin(); // Calls function from config.php
     }
 
     /**
-     * Send a JSON response and exit.
+     * Security: Require specific role(s)
+     * Reusable: All controllers call this for authorization
+     * Example: $this->roleRequired(['Administrator']);
+     */
+    protected function roleRequired($roles)
+    {
+        requireRole($roles); // Calls function from config.php
+    }
+
+    /**
+     * Reusable: Send JSON response
+     * Used by API controllers
      */
     protected function jsonResponse($data, $statusCode = 200)
     {

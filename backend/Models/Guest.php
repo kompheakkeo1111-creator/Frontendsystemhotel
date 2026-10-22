@@ -1,4 +1,27 @@
 <?php
+/**
+ * Guest Model
+ * 
+ * Represents the 'guests' database table. Stores information about hotel guests
+ * including personal details and identification.
+ * 
+ * Database Table: guests
+ * Columns: id, full_name, gender, date_of_birth, nationality, phone, email,
+ *          address, identification_number, created_at
+ * 
+ * CRUD Operations:
+ * - Read: all(), find()
+ * - Create: create()
+ * - Update: update()
+ * - Delete: delete()
+ * 
+ * Relationships:
+ * - One-to-Many: Reservation (guest can have multiple reservations)
+ * - One-to-Many: CheckIn (guest can have multiple check-ins)
+ * 
+ * Helper Methods:
+ * - hasReservations(): Check if guest has any reservations
+ */
 namespace App\Models;
 
 use App\Core\Model;
@@ -6,6 +29,18 @@ use PDO;
 
 class Guest extends Model
 {
+    /**
+     * Get all guests with additional computed columns.
+     * Includes count of stays (non-cancelled reservations) and active stay status.
+     * 
+     * SQL Structure:
+     * - SELECT: all guest columns, plus subqueries for stay count and active status
+     * - Subquery 1: COUNT of non-cancelled reservations
+     * - Subquery 2: COUNT of active check-ins (0 or 1)
+     * - ORDER BY: created_at descending (newest first)
+     * 
+     * Security: No user input, static query
+     */
     public function all()
     {
         return $this->db->query(
@@ -16,6 +51,18 @@ class Guest extends Model
         )->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Find a guest by ID.
+     * 
+     * SQL Structure:
+     * - SELECT: all columns from guests
+     * - WHERE: id = ?
+     * 
+     * Security: Prepared statement with parameterized query
+     * 
+     * @param int $id The guest ID
+     * @return array|false Guest record or false if not found
+     */
     public function find($id)
     {
         $stmt = $this->db->prepare("SELECT * FROM guests WHERE id = ?");
@@ -23,6 +70,19 @@ class Guest extends Model
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Create a new guest record.
+     * 
+     * SQL Structure:
+     * - INSERT INTO guests (full_name, gender, date_of_birth, nationality,
+     *                       phone, email, address, identification_number)
+     * - VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+     * 
+     * Security: Prepared statement with parameterized query
+     * 
+     * @param array $data Guest data array with required keys
+     * @return int The newly created guest ID
+     */
     public function create(array $data)
     {
         $stmt = $this->db->prepare(
@@ -36,6 +96,19 @@ class Guest extends Model
         return (int)$this->db->lastInsertId();
     }
 
+    /**
+     * Update an existing guest record.
+     * 
+     * SQL Structure:
+     * - UPDATE guests SET full_name=?, gender=?, date_of_birth=?, nationality=?,
+     *                     phone=?, email=?, address=?, identification_number=?
+     * - WHERE id = ?
+     * 
+     * Security: Prepared statement with parameterized query
+     * 
+     * @param int $id The guest ID to update
+     * @param array $data Updated guest data
+     */
     public function update($id, array $data)
     {
         $stmt = $this->db->prepare(
@@ -47,6 +120,20 @@ class Guest extends Model
         ]);
     }
 
+    /**
+     * Check if a guest has any reservations.
+     * Used to prevent deletion of guests with existing reservations.
+     * 
+     * SQL Structure:
+     * - SELECT: COUNT(*)
+     * - FROM: reservations
+     * - WHERE: guest_id = ?
+     * 
+     * Security: Prepared statement with parameterized query
+     * 
+     * @param int $id The guest ID
+     * @return bool True if guest has reservations, false otherwise
+     */
     public function hasReservations($id)
     {
         $stmt = $this->db->prepare("SELECT COUNT(*) FROM reservations WHERE guest_id=?");
@@ -54,6 +141,16 @@ class Guest extends Model
         return (int)$stmt->fetchColumn() > 0;
     }
 
+    /**
+     * Delete a guest record.
+     * 
+     * SQL Structure:
+     * - DELETE FROM guests WHERE id = ?
+     * 
+     * Security: Prepared statement with parameterized query
+     * 
+     * @param int $id The guest ID to delete
+     */
     public function delete($id)
     {
         $stmt = $this->db->prepare("DELETE FROM guests WHERE id = ?");

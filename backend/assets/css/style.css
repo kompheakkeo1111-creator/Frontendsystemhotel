@@ -85,10 +85,46 @@ body {
     font-weight: 700;
     margin-bottom: 6px;
     display: flex;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 8px;
+    text-align: center;
     text-decoration: none;
-    padding: 10px 0;
+    padding: 14px 0 6px;
+}
+
+/* Hotel logo (emblem + wordmark) in the sidebar */
+.sidebar .brand-logo {
+    width: 100%;
+    max-width: 165px;
+    height: auto;
+    object-fit: contain;
+    border-radius: 14px;
+    background: #fff;
+    padding: 8px;
+    margin: 0 auto;
+    display: block;
+}
+
+.sidebar .brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.15;
+    min-width: 0;
+}
+
+.sidebar .brand-name {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+.sidebar .brand-tag {
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: #d4af37;
 }
 
 .sidebar .nav {

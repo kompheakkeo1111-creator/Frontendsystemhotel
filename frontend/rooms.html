@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -190,7 +190,7 @@
     </div>
 </footer>
 
-<script src="js/api.js"></script>
+<script src="js/api.js?v=2"></script>
 <script src="js/main.js"></script>
 <script>
 // Set min dates
@@ -281,6 +281,7 @@ document.getElementById('searchForm').addEventListener('submit', async function(
             } else {
                 renderRooms(res.data.map(r => ({
                     ...r,
+                    id: r.room_type_id || r.id,
                     type_name: r.type_name,
                     image: r.image || 'images/room-deluxe.jpg',
                     available_rooms: 1,
@@ -356,6 +357,7 @@ document.getElementById('bookingForm').addEventListener('submit', async function
                 <i class="fas fa-check-circle" style="font-size:4rem; color:#28a745;"></i>
                 <h3 style="margin:15px 0 10px;">Reservation Confirmed!</h3>
                 <p style="color:#666;">Reservation Number: <strong>${res.data.reservation_number}</strong></p>
+                <p style="color:#666;">Room: <strong>${res.data.room_number || 'To be assigned'}</strong></p>
                 <p style="color:#666;">Check-in: ${res.data.check_in} | Check-out: ${res.data.check_out}</p>
                 <p style="color:#666;">Total: <strong>$${res.data.total}</strong> for ${res.data.nights} night(s)</p>
                 <p style="margin-top:15px; color:#999; font-size:0.85rem;">We'll contact you shortly to confirm.</p>

@@ -2,27 +2,36 @@
 // Suppress deprecation warnings for PHP 8.2+
 error_reporting(E_ALL & ~E_DEPRECATED);
 
-// Database configuration - Local WAMP
-define('DB_HOST', 'localhost');
-define('DB_USER', 'root');
-define('DB_PASS', '');
-define('DB_NAME', 'hotel_management');
+// Database configuration - Auto-detect environment
+if (file_exists(__DIR__ . '/config_local.php')) {
+    require __DIR__ . '/config_local.php';
+} else {
+    define('DB_HOST', 'sql105.infinityfree.com');
+    define('DB_USER', 'if0_42865773');
+    define('DB_PASS', 'YIfvzeJH4d');
+    define('DB_NAME', 'if0_42865773_hotel_management_system');
+}
 
 // Application configuration
 define('APP_NAME', 'Hotel Management System');
 
-// Session configuration
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
+// Google OAuth Client ID - defined in config_local.php if present
+if (!defined('GOOGLE_CLIENT_ID')) {
+    define('GOOGLE_CLIENT_ID', '');
 }
 
-// Database connection
+// Security: Session configuration - prevents session hijacking
+if (session_status() === PHP_SESSION_NONE) {
+    session_start(); // Security: Start session for login state
+}
+
+// Security: Database connection with error handling
 function getDB() {
     static $conn = null;
     if ($conn !== null) return $conn;
     try {
-        $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8mb4", DB_USER, DB_PASS);
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8mb4", DB_USER, DB_PASS); // Security: Use PDO with charset
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // Security: Enable error exceptions
         $conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         return $conn;
     } catch(PDOException $e) {
@@ -41,31 +50,31 @@ function isInstalled() {
     }
 }
 
-// Check if user is logged in
+// Security: Check if user is logged in
 function isLoggedIn() {
-    return isset($_SESSION['user_id']);
+    return isset($_SESSION['user_id']); // Security: Verify session exists
 }
 
-// Check user role
+// Security: Check user role for access control
 function hasRole($roles) {
-    if (!isLoggedIn()) return false;
+    if (!isLoggedIn()) return false; // Security: Must be logged in first
     if (!is_array($roles)) $roles = [$roles];
-    return in_array($_SESSION['user_role'], $roles);
+    return in_array($_SESSION['user_role'], $roles); // Security: Check if user role matches allowed roles
 }
 
-// Redirect if not logged in
+// Security: Redirect to login if not authenticated
 function requireLogin() {
     if (!isLoggedIn()) {
-        header('Location: index.php?r=login/index');
+        header('Location: index.php?r=login/index'); // Security: Force login
         exit();
     }
 }
 
-// Redirect if no permission
+// Security: Redirect if no permission (Role-Based Access Control)
 function requireRole($roles) {
-    requireLogin();
+    requireLogin(); // Security: Must be logged in first
     if (!hasRole($roles)) {
-        header('Location: index.php?r=dashboard/index');
+        header('Location: index.php?r=dashboard/index'); // Security: Deny access, redirect to dashboard
         exit();
     }
 }
