@@ -29,6 +29,28 @@ http://localhost/Frontendsystemhotel/backend/
    - Username: `admin`
    - Password: `admin123`
 
+## Development Workflow (Team of 4)
+
+This project uses a **branch-based workflow** so team members never overwrite each other's work.
+
+| Branch | Purpose |
+|--------|---------|
+| `main` | Finished, working code — only updated by merging a Pull Request |
+| `develop` | Integration branch — merge your finished features here |
+| `feature/*` | Your own task, created from `develop` |
+
+```bash
+git checkout develop
+git pull origin develop
+git checkout -b feature/my-task     # start work
+git add .
+git commit -m "feat: describe change"
+git push -u origin feature/my-task  # then open a Pull Request on GitHub
+```
+
+See **[CONTRIBUTING.md](CONTRIBUTING.md)** for the full guide, commit message
+format, conflict resolution steps and useful Git commands.
+
 ## Pages
 
 ### Public Website
