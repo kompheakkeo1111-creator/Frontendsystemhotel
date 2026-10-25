@@ -6,14 +6,16 @@ error_reporting(E_ALL & ~E_DEPRECATED);
 if (file_exists(__DIR__ . '/config_local.php')) {
     require __DIR__ . '/config_local.php';
 } else {
-    define('DB_HOST', 'sql102.infinityfree.com');
-    define('DB_USER', 'if0_43261235');
-    define('DB_PASS', 'ArizuHotel2026');
-    define('DB_NAME', 'if0_43261235_hotel_management');
+    // DEMO BRANCH: placeholder credentials only - no real server, no real password.
+    // Point this at your local WAMP/XAMPP MySQL and import hotel_management_1_2.sql.
+    define('DB_HOST', '127.0.0.1');
+    define('DB_USER', 'root');
+    define('DB_PASS', '');
+    define('DB_NAME', 'hotel_management_demo');
 }
 
 // Application configuration
-define('APP_NAME', 'Hotel Management System');
+define('APP_NAME', 'Demo Hotel Management System');
 
 // Google OAuth Client ID - defined in config_local.php if present
 if (!defined('GOOGLE_CLIENT_ID')) {

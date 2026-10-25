@@ -75,7 +75,7 @@ function navItem($key, $href, $icon, $label) {
         <div class="col-md-2 sidebar" id="sidebar">
             <!-- Brand Logo: Hotel logo with wordmark, links to dashboard home -->
             <a class="brand" href="index.php?r=dashboard/index">
-                <img class="brand-logo" src="assets/img/logo-full.png" alt="Arizu-Arimato Hotel &amp; Resorts">
+                <img class="brand-logo" src="assets/img/logo-full.png" alt="Demo Hotel">
             </a>
 
             <!-- User Info Box: Displays logged-in user name and role from session -->

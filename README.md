@@ -1,4 +1,7 @@
-# Arizu Arimato - Hotel Management System
+# Demo Hotel - Hotel Management System
+
+> **This is the `demo` branch.** All credentials, branding and records here are
+> placeholders — nothing is real. Setup instructions: **[DEMO.md](DEMO.md)**
 
 ## Live Demo
 **Frontend**: https://kompheakkeo1111-creator.github.io/Frontendsystemhotel/

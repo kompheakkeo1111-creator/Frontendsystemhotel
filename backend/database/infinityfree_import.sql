@@ -1,6 +1,13 @@
 -- =========================================================
+-- *** DEMO / SAMPLE DATA - NOT REAL RECORDS ***
+-- Every guest, user, room and setting in this file is
+-- placeholder data created for development and testing.
+-- No real guest, employee or customer information exists
+-- in this dump. Do not use these credentials in production.
+-- =========================================================
+-- =========================================================
 -- Hotel Management System - Import to InfinityFree phpMyAdmin
--- Database: if0_42865773_hotel_management_system
+-- Database: hotel_management_demo
 -- =========================================================
 
 -- ---------------------------------------------------------
@@ -214,7 +221,7 @@ CREATE TABLE IF NOT EXISTS `system_settings` (
 
 -- Admin user (password: admin123)
 INSERT INTO `users` (`username`, `password`, `full_name`, `email`, `phone`, `role`, `status`) VALUES
-('admin', '$2y$10$9/Qp4ILeDWK1gB/tVF1k9OYZUHhWTtDzrfW0BtETJy0d8mxJROeE.', 'System Administrator', 'admin@arizu-arimato.com', '085373940', 'Administrator', 'Active');
+('admin', '$2y$10$9/Qp4ILeDWK1gB/tVF1k9OYZUHhWTtDzrfW0BtETJy0d8mxJROeE.', 'System Administrator', 'admin@demohotel.example', '+855 12 345 678', 'Administrator', 'Active');
 
 -- Room Types
 INSERT INTO `room_types` (`type_name`, `description`, `price_per_night`, `capacity`) VALUES
@@ -254,10 +261,10 @@ INSERT INTO `rooms` (`room_number`, `room_type_id`, `floor`, `capacity`, `price_
 
 -- System Settings
 INSERT INTO `system_settings` (`setting_key`, `setting_value`) VALUES
-('hotel_name', 'Arizu Arimato'),
+('hotel_name', 'Demo Hotel'),
 ('hotel_address', 'Siem Reap'),
-('hotel_phone', '085373940'),
-('hotel_email', 'kompheakkeo1111@gmail.com'),
+('hotel_phone', '+855 12 345 678'),
+('hotel_email', 'info@demohotel.example'),
 ('currency', 'USD'),
 ('tax_rate', '10.00');
 

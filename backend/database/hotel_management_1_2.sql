@@ -1,3 +1,10 @@
+-- =========================================================
+-- *** DEMO / SAMPLE DATA - NOT REAL RECORDS ***
+-- Every guest, user, room and setting in this file is
+-- placeholder data created for development and testing.
+-- No real guest, employee or customer information exists
+-- in this dump. Do not use these credentials in production.
+-- =========================================================
 -- =============================================
 -- Hotel Management System Database v1.2
 -- Complete schema matching application code
@@ -206,9 +213,9 @@ INSERT IGNORE INTO `users` (`username`, `password`, `full_name`, `email`, `role`
 
 -- Default system settings
 INSERT IGNORE INTO `system_settings` (`setting_key`, `setting_value`) VALUES
-('hotel_name', 'Arizu Arimato'),
+('hotel_name', 'Demo Hotel'),
 ('hotel_address', 'Siem Reap, Cambodia'),
 ('hotel_phone', '+855 12 345 678'),
-('hotel_email', 'info@arizuhotel.com'),
+('hotel_email', 'info@demohotel.example'),
 ('currency', 'USD'),
 ('tax_rate', '10.00');
