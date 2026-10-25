@@ -6,10 +6,10 @@ error_reporting(E_ALL & ~E_DEPRECATED);
 if (file_exists(__DIR__ . '/config_local.php')) {
     require __DIR__ . '/config_local.php';
 } else {
-    define('DB_HOST', 'sql105.infinityfree.com');
-    define('DB_USER', 'if0_42865773');
-    define('DB_PASS', 'YIfvzeJH4d');
-    define('DB_NAME', 'if0_42865773_hotel_management_system');
+    define('DB_HOST', 'sql102.infinityfree.com');
+    define('DB_USER', 'if0_43261235');
+    define('DB_PASS', 'ArizuHotel2026');
+    define('DB_NAME', 'if0_43261235_hotel_management');
 }
 
 // Application configuration
