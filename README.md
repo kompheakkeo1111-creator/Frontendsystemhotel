@@ -1,7 +1,11 @@
 # Arizu Arimato - Hotel Management System
 
 ## Live Demo
-**Frontend**: https://kompheakkeo1111-creator.github.io/Frontendsystemhotel/
+**Frontend**: https://kompheakkeo1111-creator.github.io/Frontendsystemhotel/frontend/index.html
+
+> The site root now redirects to `frontend/` automatically (see `index.html`).
+> The PHP backend cannot run on GitHub Pages — it needs the InfinityFree/hosting
+> setup described in `FREE_HOSTING.md`.
 
 ## Quick Start (Local Setup)
 

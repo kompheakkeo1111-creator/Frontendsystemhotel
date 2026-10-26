@@ -1,0 +1,16 @@
+# GitHub Pages (Jekyll) configuration.
+#
+# The Pages site is published from this branch, so Jekyll would otherwise copy
+# EVERY file in the repo to the public site — including backend PHP source
+# (backend/config.php contains database credentials!) and SQL backups with
+# real guest/user data. The exclude list below keeps server-side code and data
+# off the public site; only the static frontend and docs are published.
+exclude:
+  - backend/
+  - tests/
+  - backups/
+  - hotel_management_1_2.sql
+  - node_modules/
+  - vendor/
+  - Gemfile
+  - Gemfile.lock
