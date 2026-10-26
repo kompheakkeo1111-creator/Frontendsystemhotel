@@ -171,7 +171,7 @@
 <body>
     <div class="login-card">
         <!-- Hotel logo (emblem + wordmark) -->
-        <img class="login-logo" src="assets/img/logo-full.png" alt="Arizu-Arimato Hotel &amp; Resorts">
+        <img class="login-logo" src="assets/img/logo-full.png" alt="Demo Hotel">
 
         <h2>Hotel Management</h2>
 
