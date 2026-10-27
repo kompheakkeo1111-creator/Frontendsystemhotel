@@ -27,6 +27,11 @@ There are **3 main parts**:
 
 ## 2. Root Files (documentation and config)
 
+> **Note:** the seven long-form docs below (`README.md` excepted) were moved into
+> the `CODE_EXPLANATIONS/` folder — this guide was written when they sat at the
+> repo root. `README.md`, `index.html`, `_config.yml`, `ASSIGNMENT_CRITERIA_P19.md`
+> and `hotel_erd.html` are still at the root.
+
 | File | What it does |
 |------|--------------|
 | `index.html` | Tiny page at the site root. It instantly **redirects visitors to `frontend/`** so GitHub Pages shows the website instead of a blank page. |

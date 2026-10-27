@@ -12,7 +12,7 @@ Arizu Arimato is a complete hotel management system with two parts:
 
 | Part | Who uses it | Address |
 |------|-------------|---------|
-| **Public website** | Guests: browse rooms, check availability, book online, send messages | `https://kompheakkeo1111-creator.github.io/Frontendsystemhotel/frontend/index.html` (or your hosting URL) |
+| **Public website** | Guests: browse rooms, check availability, book online, send messages | `https://kompheakkeo1111-creator.github.io/Frontendsystemhotel/` (or your hosting URL) |
 | **Admin panel** | Staff: manage reservations, check-ins, billing, rooms, users, reports | `http://your-server/backend/index.php` |
 
 ---
