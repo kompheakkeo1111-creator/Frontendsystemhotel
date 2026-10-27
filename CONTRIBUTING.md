@@ -1,4 +1,4 @@
-# Contributing Guide — Demo Hotel
+# Contributing Guide — Arizu Arimato
 
 Team size: **4 members**. Follow this workflow so nobody overwrites anyone's work.
 

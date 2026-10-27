@@ -1,7 +1,10 @@
-# Demo Hotel - Hotel Management System
+# Arizu Arimato - Hotel Management System
 
-> **This is the `demo` branch.** All credentials, branding and records here are
-> placeholders — nothing is real. Setup instructions: **[DEMO.md](DEMO.md)**
+> **Safe placeholders:** database credentials in `backend/config.php` are
+> local-only (no real server or password in this repo), guest records in the
+> SQL dumps are samples, and `backups/` (real production dumps) is not in the
+> repository. Real hosting config goes in `backend/config_local.php`
+> (gitignored). Details: **[DEMO.md](DEMO.md)**
 
 ## Live Demo
 **Frontend**: https://kompheakkeo1111-creator.github.io/Frontendsystemhotel/

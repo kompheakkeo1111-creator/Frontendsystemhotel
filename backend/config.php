@@ -6,8 +6,9 @@ error_reporting(E_ALL & ~E_DEPRECATED);
 if (file_exists(__DIR__ . '/config_local.php')) {
     require __DIR__ . '/config_local.php';
 } else {
-    // DEMO BRANCH: placeholder credentials only - no real server, no real password.
+    // PLACEHOLDER credentials only - no real server, no real password.
     // Point this at your local WAMP/XAMPP MySQL and import hotel_management_1_2.sql.
+    // For live hosting, define the real values in config_local.php (gitignored).
     define('DB_HOST', '127.0.0.1');
     define('DB_USER', 'root');
     define('DB_PASS', '');
@@ -15,7 +16,7 @@ if (file_exists(__DIR__ . '/config_local.php')) {
 }
 
 // Application configuration
-define('APP_NAME', 'Demo Hotel Management System');
+define('APP_NAME', 'Arizu Arimato Hotel Management System');
 
 // Google OAuth Client ID - defined in config_local.php if present
 if (!defined('GOOGLE_CLIENT_ID')) {

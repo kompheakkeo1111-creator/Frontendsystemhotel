@@ -391,10 +391,10 @@ class ApiController extends Controller
         $this->jsonResponse([
             'success' => true,
             'data' => [
-                'hotel_name' => $settings['hotel_name'] ?? 'Demo Hotel',
+                'hotel_name' => $settings['hotel_name'] ?? 'Arizu Arimato',
                 'hotel_address' => $settings['hotel_address'] ?? 'Siem Reap, Cambodia',
                 'hotel_phone' => $settings['hotel_phone'] ?? '+855 12 345 678',
-                'hotel_email' => $settings['hotel_email'] ?? 'info@demohotel.example',
+                'hotel_email' => $settings['hotel_email'] ?? 'info@arizuhotel.com',
                 'currency' => $settings['currency'] ?? 'USD',
             ]
         ]);

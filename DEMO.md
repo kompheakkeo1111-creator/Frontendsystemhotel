@@ -1,48 +1,52 @@
-# Demo Branch — Placeholder Version
+# Safe Placeholders & Demo Branch Guide
 
-You are on the **`demo`** branch. This is a safe, fake copy of the project meant
-for team members to pull, run and develop against **without touching real
-credentials or real records**.
+This repository is written so that **nothing sensitive is ever pushed to
+GitHub**: database credentials are local-only placeholders, the SQL dumps
+contain sample records, and production backups are not stored in the repo.
 
-> **This branch contains no real data.** Everything you see is a placeholder.
+> **No real guest, employee or customer data exists in this repository.**
 
 ---
 
-## What is faked on this branch
+## What is a placeholder in this repo
 
-| Item | Real value | Demo value |
-|------|-----------|------------|
-| Database host | `sql102.infinityfree.com` (live server) | `127.0.0.1` (your own machine) |
-| Database user | `if0_43261235` | `root` |
+| Item | Real value (never committed) | Value in this repo |
+|------|------------------------------|--------------------|
+| Database host | your live server (e.g. InfinityFree) | `127.0.0.1` (your own machine) |
+| Database user | live DB user | `root` |
 | Database password | *(real password)* | *(empty — local only)* |
-| Database name | `if0_43261235_hotel_management` | `hotel_management_demo` |
-| Hotel name | *(real hotel name)* | `Demo Hotel` |
-| Hotel email | *(real inbox)* | `info@demohotel.example` |
+| Database name | live DB name | `hotel_management_demo` |
 | Hotel phone | *(real number)* | `+855 12 345 678` |
 | Seed guests | — | `John Smith`, `Maria Garcia`, `Chen Wei`, `Sarah Johnson` |
-| `backups/*.sql` | real production dumps | **removed entirely** |
+| `backups/*.sql` | real production dumps | **not in the repository** |
 
-The real branding, credentials and backups live on the **`develop`** and
-**`main`** branches only.
+The hotel **name** (`Arizu Arimato`) and public email are the project's real
+branding — they are safe to publish. All *credentials* and *records* are
+placeholders.
 
----
+Real server credentials, if ever needed, go in `backend/config_local.php`
+which is listed in `.gitignore` and is never pushed to GitHub.
 
-## Run the demo locally
+### The `demo` branch
 
-### 1. Clone and switch to this branch
-
-```bash
-git clone https://github.com/kompheakkeo1111-creator/Frontendsystemhotel.git
-cd Frontendsystemhotel
-git checkout demo
-```
-
-Already have it cloned?
+A separate **`demo`** branch exists as a fully-faked starter copy (placeholder
+branding *and* credentials) for team members to pull and develop against:
 
 ```bash
 git fetch origin
 git checkout demo
 git pull origin demo
+```
+
+---
+
+## Run the project locally
+
+### 1. Clone
+
+```bash
+git clone https://github.com/kompheakkeo1111-creator/Frontendsystemhotel.git
+cd Frontendsystemhotel
 ```
 
 ### 2. Start your database
@@ -63,7 +67,7 @@ http://localhost/Frontendsystemhotel/frontend/index.html   (public site)
 http://localhost/Frontendsystemhotel/backend/              (admin panel)
 ```
 
-Default demo login:
+Default login:
 
 | Username | Password |
 |----------|----------|
@@ -71,13 +75,14 @@ Default demo login:
 
 ---
 
-## Daily workflow from this branch
+## Daily workflow
 
-**Never commit your work directly to `demo`.** Create your own branch:
+**Never commit your work directly to `main` or `develop`.** Create your own
+branch:
 
 ```bash
-git checkout demo
-git pull origin demo
+git checkout develop
+git pull origin develop
 
 git checkout -b feature/my-task     # your own branch
 
@@ -97,18 +102,17 @@ See **[CONTRIBUTING.md](CONTRIBUTING.md)** for the full 4-member workflow.
 | Branch | Purpose | Contains real data? |
 |--------|---------|--------------------|
 | `demo` | Safe starter copy for team members | No — placeholders only |
-| `develop` | Integration branch, merged features land here | Yes |
-| `main` | Finished, deployed code | Yes |
+| `develop` | Integration branch, merged features land here | No — placeholders only |
+| `main` | Finished, deployed code | No — placeholders only |
 | `feature/*` | Your own task | Whatever you add |
 
 ---
 
 ## Important warnings
 
-1. **Do not use the demo database credentials on a live server** — they are
+1. **Do not use these database credentials on a live server** — they are
    deliberately non-working placeholders.
-2. **Do not copy real guest records into this branch.** Use the sample rows
-   already provided.
+2. **Do not commit real guest records.** Use the sample rows already provided.
 3. **Do not force push** (`git push --force`) — it can erase teammates' work.
 4. If you need the real configuration for local development, create a
    `backend/config_local.php` file. It is listed in `.gitignore` and is never
@@ -119,10 +123,9 @@ See **[CONTRIBUTING.md](CONTRIBUTING.md)** for the full 4-member workflow.
 ## If something looks wrong
 
 ```bash
-# Get back to a clean demo state
-git checkout demo
+# Get back to the last pushed state of your branch
 git fetch origin
-git reset --hard origin/demo
+git reset --hard origin/<your-branch>
 ```
 
 `git reset --hard` **discards your uncommitted local changes** — commit or
