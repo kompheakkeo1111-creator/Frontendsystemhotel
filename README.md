@@ -6,6 +6,12 @@
 ## Live Demo
 **Frontend**: https://kompheakkeo1111-creator.github.io/Frontendsystemhotel/
 
+> GitHub Pages serves the **contents of `frontend/`** as the site root (see
+> `.github/workflows/deploy.yml`), so the homepage is the URL above — there is
+> no `/frontend/` segment in the live link. The PHP backend cannot run on
+> GitHub Pages — it needs the InfinityFree/hosting setup described in
+> `CODE_EXPLANATIONS/FREE_HOSTING.md`.
+
 ## Quick Start (Local Setup)
 
 ### Requirements
@@ -51,7 +57,7 @@ git commit -m "feat: describe change"
 git push -u origin feature/my-task  # then open a Pull Request on GitHub
 ```
 
-See **[CONTRIBUTING.md](CONTRIBUTING.md)** for the full guide, commit message
+See **[CONTRIBUTING.md](CODE_EXPLANATIONS/CONTRIBUTING.md)** for the full guide, commit message
 format, conflict resolution steps and useful Git commands.
 
 ## Pages

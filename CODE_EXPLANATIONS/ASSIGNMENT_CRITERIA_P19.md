@@ -257,9 +257,9 @@ The teacher gives you the recommended process. Follow these phases:
 | 2 | Requirements Analysis | 10 | 🟨 Partial | Features listed in README | ❌ Formal functional + non-functional tables |
 | 3 | System Design | 10 | 🟨 Partial | ✅ `hotel_erd.html`, DB schema | ❌ DFD/Flowchart, ❌ Figma wireframes, ❌ Architecture diagram |
 | 4 | Implementation | 20 | 🟢 Strong | Full PHP MVC + responsive UI + validation | Keep quality high; add comments |
-| 5 | Testing | 5 | 🔴 Weak | — | ❌ No test docs yet (unit/integration/system) |
-| 6 | Deployment | 10 | 🟢 Strong | ✅ GitHub Pages live demo + Actions workflow | ✅ Almost done |
-| 7 | Documentation | 5 | 🟢 Strong | ✅ 15 `CODE_EXPLANATIONS/` + README + guides | ❌ User Manual / Admin Manual |
+| 5 | Testing | 5 | 🟢 Strong | ✅ `TESTING.md` + 71 automated tests (`tests/`: unit/integration/system), all passing | Add UAT evidence (real user trial) if possible |
+| 6 | Deployment | 10 | 🟢 Strong | ✅ Live demo link fixed (root `index.html` → `frontend/`) + Actions workflow + `_config.yml` keeps `backend/` off Pages | ✅ Done — backend still needs free hosting for full stack |
+| 7 | Documentation | 5 | 🟢 Strong | ✅ 15 `CODE_EXPLANATIONS/` + README + guides + `USER_MANUAL.md` | Optional: separate Admin Manual (partially covered in USER_MANUAL §3) |
 | 8 | Presentation | 10 | 🔴 Not started | — | ❌ Slides + rehearsed live demo + Q&A |
 | 9 | Teamwork | 10 | 🟨 Partial | ✅ GitHub, branches, PRs, `CONTRIBUTING.md` | ❌ Trello/Notion board, ❌ chat evidence, ❌ member commits |
 | 10 | Create Video | 10 | 🔴 Not started | — | ❌ Project video |
